@@ -25,10 +25,20 @@ export default function SinglePlayer() {
   };
 
   return (
-    <div>
+    <div className="one-puppy">
       <h2>{player.name}</h2>
+
+      {player.imageUrl && (
+        <img 
+          src={player.imageUrl} 
+          alt={player.name} 
+          style={{ maxWidth: '300px', borderRadius: '8px', marginTop: '10px' }} 
+        />
+      )}
+
       <p>Breed: {player.breed}</p>
       <p>Status: {player.status}</p>
+      
       <button onClick={handleDelete}>Delete Player</button>
       <button onClick={() => navigate('/')}>Back to All Players</button>
     </div>
