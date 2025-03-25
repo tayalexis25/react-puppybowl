@@ -1,22 +1,21 @@
-import { useState } from 'react'
-import './App.css'
-import { Routes, Route } from "react-router-dom";
-import { fetchAllPlayers } from './API'
-import newPlayerForm from './components/NewPlayerForm';
+import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import AllPlayers from './components/AllPlayers';
+import SinglePlayer from './components/SinglePlayer';
+import NewPlayerForm from './components/NewPlayerForm';
+import NavBar from './components/NavBar';
 
-export default function App() {
-  // const [count, setCount] = useState(0)
-
+function App() {
   return (
-    <React.StrictMode>
-      <BrowserRouter>
-      {/* <Routes>
-        <Route>  */}
-      <App />
-        {/* </Route>
-      </Routes> */}
-      </BrowserRouter>
-    </React.StrictMode>
-  )
+    <BrowserRouter>
+      <NavBar />
+      <Routes>
+        <Route path="/" element={<AllPlayers />} />
+        <Route path="/players/:id" element={<SinglePlayer />} />
+        <Route path="/new" element={<NewPlayerForm />} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
+export default App;

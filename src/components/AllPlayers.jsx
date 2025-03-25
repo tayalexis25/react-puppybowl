@@ -1,30 +1,35 @@
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { fetchAllPlayers } from "../API/index";
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { fetchPlayers } from '../API/index';
 
-const AllPlayers = () => {
+export default function AllPlayers() {
   const [players, setPlayers] = useState([]);
-  const [error, setError] = useState(null);
 
   useEffect(() => {
-    async function getAllPlayers() {
-      const APIResponse = await fetchAllPlayers();
-      console.log(APIResponse.data.players);
-      if (APIResponse.success) {
-        setPlayers(APIResponse.data.players);
-      } else {
-        setError(APIResponse.error.message);
-      }
+    async function getPlayers() {
+      const allPlayers = await fetchPlayers();
+      setPlayers(allPlayers);
     }
-
-    getAllPlayers();
+    getPlayers();
   }, []);
-
-  const playersToDisplay = players;
 
   return (
     <div>
       <h2>All Players</h2>
+      {players.map((player) => (
+        <div key={player.id}>
+          <Link to={`/players/${player.id}`}>
+            <h4>{player.name}</h4>
+          </Link>
+          <img 
+          src={player.imageUrl} 
+          alt={`${player.name}`} 
+          style={{ width: "150px", height: "150px", objectFit: "cover", borderRadius: "10px" }} 
+        />
+          <p>{player.breed}</p>
+        </div>
+      ))}
     </div>
   );
-};
+}
+
